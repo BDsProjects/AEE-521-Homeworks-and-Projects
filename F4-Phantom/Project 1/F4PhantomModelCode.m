@@ -1,5 +1,5 @@
 m = 0;
-g = -9.81;
+g = -32.2;
 A_ft = 41.5;
 XHV_ft = 8.5;
 b_ft = 38.7;
@@ -59,8 +59,8 @@ xbar_AC_H = 1.479;
 
 alt = 35000;
 Mach = 0.9;
-q_bar_1 = 283.2;
-alpha = 2.6;
+qbar1 = 283.2;
+alpha1 = 2.6;
 Length = 63.75; %(ft)
 Height = 16.5;
 xbar_CG = 0.29;
@@ -84,7 +84,7 @@ alpha_rad = deg2rad(alpha);
 %below variables are needed for the fAx Equations
 c_D_u = 0;
 a = 968;
-u = a*Mach; %velocity?
+uv = a*Mach; %velocity?
 V_P_1 = 0; %what is this 
 c_D_alpha = 0; %Hw3
 c_D_i = -0.10; %Given by Krishna
@@ -96,7 +96,7 @@ i_H = 0;
 
 
 Ftx = 0;
-fAx = (qbar*S_ft2)*(((-(c_D_u+(2*c_D_1)))*(u/V_P_1)) + ((c_D_alpha + c_L_1)*(alpha_deg)) - c_D_alphadot*((alphaDot*cbar_ft)/(2*V_P_1)) - c_D_q*((q*cbar)/(2*V_P_1)) - (c_D_delta_E*deltaE)-(c_D_i_H*i_H));
+fAx = 0; %(qbar1*S_ft2)*(((-(c_D_u+(2*c_D_1)))*(u/V_P_1)) + ((c_D_alpha + c_L_1)*(alpha_deg)) - c_D_alphadot*((alphaDot*cbar_ft)/(2*V_P_1)) - c_D_q*((q*cbar)/(2*V_P_1)) - (c_D_delta_E*deltaE)-(c_D_i_H*i_H));
 
 Fty = 0;
 fAy = 0;
@@ -110,7 +110,7 @@ c_L_q = 0;
 c_L_delta_E = 0;
 c_L_i_H = 0;
 
-fAz = (qbar*S_ft2)*(((-(c_L_u+(2*c_L_1)))*(u/V_P_1)) + ((c_L_alpha + c_D_1)*(alpha_deg)) - c_L_alphadot*((alphaDot*cbar_ft)/(2*V_P_1)) - c_L_q*((q*cbar)/(2*V_P_1)) - (c_L_delta_E*deltaE)-(c_L_i_H*i_H));
+fAz = 0; % (qbar1*S_ft2)*(((-(c_L_u+(2*c_L_1)))*(u/V_P_1)) + ((c_L_alpha + c_D_1)*(alpha_deg)) - c_L_alphadot*((alphaDot*cbar_ft)/(2*V_P_1)) - c_L_q*((q*cbar)/(2*V_P_1)) - (c_L_delta_E*deltaE)-(c_L_i_H*i_H));
 Ftz = 0;
 Ft = [Ftx; Fty; Ftz];
 Fa = [fAx; fAy; fAz]; 

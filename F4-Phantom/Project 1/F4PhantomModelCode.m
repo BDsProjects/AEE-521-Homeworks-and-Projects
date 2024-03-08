@@ -75,8 +75,15 @@ c_T_X1 = .030;
 c_m_T1 = 0;
 alpha_rad = deg2rad(alpha);
 
+%Homework 3
+
+
+
+%Homework 4
+
 %below variables are needed for the fAx Equations
 c_D_u = 0;
+a = 968;
 u = a*Mach; %velocity?
 V_P_1 = 0; %what is this 
 c_D_alpha = 0; %Hw3
@@ -143,7 +150,7 @@ qk=0;
 
 
 
-modelname = 'T37_SimulinkModelhw2.slx';
+modelname = 'F4PhantomRemodel.slx';
 sim(modelname)
 
 % Homework 2

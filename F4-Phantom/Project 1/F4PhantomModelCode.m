@@ -78,11 +78,13 @@ c_T_X1 = .030;
 c_m_T1 = 0;
 alpha_rad = deg2rad(alpha);
 
-%Homework 3
+%% Homework 3
+
+%% Homework 4
 
 
 
-%Homework 4
+%% 
 
 %below variables are needed for the fAx Equations
 c_D_u = 0;
@@ -95,7 +97,7 @@ c_D_alphadot = 0;
 c_D_q = 0;
 c_D_delta_E = 0;
 deltaE = 0;
-i_H = ;
+i_H = 0; %needs to be set as an array based of time 
 
 
 Ftx = 0;
@@ -150,7 +152,27 @@ qr = 1;
 qi=0;
 qj=0;
 qk=0;
+%% Input Generation
 
+t_final = 60.0;
+Ts = 0.01;
+
+timeVec = [0:Ts:t_final]';
+
+deLE = zeros(length(timeVec),1);
+iH = zeros(length(timeVec),1);
+
+deLE_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+deLE_doublet_dn_Idx = find(timeVec >= 15 & timeVec <= 17);
+
+doubletMag = 2;
+
+deLE(deLE_doublet_up_Idx,1) = deg2rad(doubletMag);
+deLE(deLE_doublet_dn_Idx,1) = deg2rad(-doubletMag);
+
+deLE_vec = horzcat(timeVec,deLE);
+iH_vec = horzcat(timeVec,iH);
+%% Model Simulation
 
 
 

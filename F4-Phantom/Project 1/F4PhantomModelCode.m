@@ -56,6 +56,9 @@ tau_E = 0.5;
 
 x_AC_H = 23.6;
 xbar_AC_H = 1.479;
+t = horzcat(0.0, 0.1, 70.0);
+
+q = 0; %pitching rate
 
 alt = 35000;
 Mach = 0.9;
@@ -92,7 +95,7 @@ c_D_alphadot = 0;
 c_D_q = 0;
 c_D_delta_E = 0;
 deltaE = 0;
-i_H = 0;
+i_H = ;
 
 
 Ftx = 0;
@@ -143,10 +146,12 @@ Mz = 0;
 
 M = [Mx; My; Mz];
 
-qr = 0;
+qr = 1;
 qi=0;
 qj=0;
 qk=0;
+
+
 
 
 

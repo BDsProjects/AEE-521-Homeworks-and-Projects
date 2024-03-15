@@ -73,11 +73,6 @@ delta_stabilitator = 0;
 deltaE = 0;
 deltaR = 0;
 deltaA = 0;
-alpha1_rad = deg2rad(alpha1);
-V_P_1 = uv/(cosalpha1_rad);
-u1 = V_P_1 * cosd(alpha1);
-q = 0; %pitching rate
-
 alt = 35000;
 Mach = 0.9;
 qbar1 = 283.2;
@@ -87,6 +82,12 @@ Height = 16.5;
 xbar_CG = 0.29;
 qbar1 = 283.2;
 e=.95;
+alpha1_rad = deg2rad(alpha1);
+V_P_1 = uv/(cos(alpha1_rad));
+%u1 = V_P_1 * cosd(alpha1);
+q = 0; %pitching rate
+
+
 %C_D_alpha should be .2322
 Weight = 39000; %lbs
 c_L_1 = .26;
@@ -94,9 +95,11 @@ c_D_1 = .030;
 c_m_1 = 0;
 c_T_X1 = .030;
 c_m_T1 = 0;
-alpha_rad = deg2rad(alpha);
+alpha_rad = deg2rad(alpha1);
 mass = Weight/32.2;
 c_L_u=((Mach^2)/(1-Mach^2))*c_L_1;
+c_m_u = 0;
+c_D_i_H = 0;
 
 LambdaLE_rad = deg2rad(LambdaLE_deg);
 
@@ -198,9 +201,10 @@ Delta_xbar_AC_B = - (1/(2.92*S_ft2*cbar_ft)) * sum;
 xbar_AC_WB = Delta_xbar_AC_B + xbar_AC_W;
 
 %Aerodynamic Parameters
+K_q = 0.7; % Check Value
 c_L_alpha_W = c_L_alpha_W_mach;
 c_L_alpha_H = c_L_alpha_H_mach*eta_H*(S_H/S_ft2)*(1-d_epsilon_dalpha_mach); %Done to here
-c_L_alpha = c_L_alpha_W_mach + c_L_alpha_H ;%G
+c_L_alpha= c_L_alpha_W_mach + c_L_alpha_H ;%G
 
 c_L_delta_E = 0; %G
 
@@ -286,6 +290,6 @@ InitialVelocity = [U v w]';
 InitialEulerOrientation = [phi theta psi]';
 
 InitialRotationRates = [p q r]';
-load('QuickModelCode.m')
+%load('QuickModelCode.m')
 modelname = 'QuickModel.slx';
-sim(modelname)
+%sim(modelname)

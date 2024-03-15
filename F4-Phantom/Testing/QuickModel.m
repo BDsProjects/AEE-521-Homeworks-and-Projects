@@ -58,7 +58,7 @@ alphadot = 0;
 
 x_AC_H = 23.6;
 xbar_AC_H = 1.479;
-t = horzcat(0.0, 0.1, 70.0);
+t = horzcat(0.0, 0.1, 60.0);
 
 c_D_u = 0;
 a = 968;

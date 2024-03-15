@@ -278,9 +278,8 @@ fourthpiece = -2*c_L_alpha_H_mach*eta_H*(S_H/S_ft2)*((xbar_AC_H-xbar_CG)^2) ;
 frac = (lefttopfrac+righttopfrac)/(bottomfrac);
 c_m_q = (frac * secondpiece * thirdpiece) + fourthpiece;
 
-Hw3Array = [cT_ft LambdaLE_rad cr_ft b_ft bH_ft cTH_ft crH_ft lambda S_ft2 AR xMAC LambdaLE_half_deg LambdaLE_quarter_deg LambdaLE_half_rad LambdaLE_quarter_rad K_AR K_lambda Z_WH m X_WH r K_mr d_epsilon_dalpha_mach0 kw c_L_alpha_W_mach0 c_L_alpha_W_mach d_epsilon_dalpha_mach lambdaH S_H ARH cbarH LambdaLEH_half_deg LambdaLEH_quarter_deg LambdaLEH_half_rad LambdaLEH_quarter_rad LambdaLEH_rad xMacH LambdaLEH_half_rad LambdaLEH_quarter_rad X_WH x_AC_H xbar_AC_H k c_L_alpha_W_mach k_H c_L_alpha_H_mach c_L_alpha_H_mach0 xprime_AC_W_over_cR K1 K2 xbar_AC_W xbar_AC_W2 xbar_AC_W3 xbar_AC_WB Delta_xbar_AC_B c_L_alpha_W c_L_alpha_H eta_H tau_E e c_L_1]; 
 
-
+Hw3Coeffs = [c_L_alpha c_L_delta_E c_L_i_H c_m_alpha c_m_delta_E c_m_i_H c_L_alphadot c_L_q c_m_alphadot c_m_q];
 %% Homework 4
 
 alt = 35000;
@@ -355,10 +354,261 @@ tau_E = 0;
 e = .95;
 K_q = 0.7;
 
+alt = 35000;
+Mach = 0.9;
+q_bar_1 = 283.2;
+alpha = 2.6;
+Length = 63.75; %(ft)
+Height = 16.5;
+xbar_CG = 0.29;
+qbar = 283.2;
+e=.95;
+%C_D_alpha should be .2322
+Weight = 39000; %lbs
+c_L_1 = .26;
+c_D_1 = .030;
+c_m_1 = 0;
+c_T_X1 = .030;
+c_m_T1 = 0;
+alpha_rad = deg2rad(alpha);
+
+C_Y_delta_A = 0;
+ %- Done
+%cbarR = 0; %Needs to be plugged in to forrect
+%tau_R_x_axis = cR_ft/cbarR
+tau_R = 0.42;
+K_R = 0;
+K_R_F = .94;
+delta_K_R = K_R_F-K_R; %0 - .94
+C_Y_delta_R = abs(C_L_alpha_V) *eta_V*((0.5*S2V)/S_ft2)*delta_K_R*tau_R ;% This is correct 
+% - Done
+C_Y_beta_W = -.0001 * ((GammaW_deg)) * 57.3 ;
+K_int = 1.15;
+%c_Y_beta_W = -2*(SP_V_ft2/S_ft2)
+C_Y_beta_H = -.0001 * abs((GammaH_deg)) * 57.3 * (.724 + 3.06 * ((S_H/S_ft2)/(1+cos(rad2deg(LambdaLE_quarter_rad))))+(.4*(ZW_ft/d_ft))+(.009*ARH)) *(S_H/S_ft2);
+C_Y_beta_B = -2*(.96*(SP_V_ft2/S_ft2));
+K_HV = 1;
+AR_V_eff = c1 * AR2_V * (1+K_HV*(c2-1));
+k_V = 1 + ((AR_V_eff*(1.87 - (0.000233*LambdaLEV_rad)))/100);
+C_L_alpha_V_eff = (2*pi*AR_V_eff)/(2 + sqrt(((AR_V_eff*(1-Mach^2))/(k_V))*(1+((tan(LambdaLEV_rad_half)^2)/(1-Mach^2)))+4));
+disp(rad2deg(LambdaLEV_rad_quarter));
+
+C_Y_beta_V = -K_Y_V * abs(C_L_alpha_V_eff) * (.724 + 3.06 * (S_V/S_ft2)/(1+cos((LambdaLE_quarter_rad)))+(.4*(ZW_ft/d_ft))+(.009*AR)) *(S_2V/S_ft2);
+C_Y_beta = C_Y_beta_W + C_Y_beta_B + C_Y_beta_H  + C_Y_beta_V; %abt double what it needs to be
+ %- Done
+c_n_beta_W = 0; %negligible for all configs
+
+lcg_ft/lb_ft;
+(lb_ft^2)/SBS_ft;
+Z1 = 6.8; % Marked in F4 Document, Also in figure 4.47 in lecture 8-1
+Z2 = 6.9; % Marked in F4 Document, Also in figure 4.47 in lecture 8-1
+sqrt(Z1/Z2);
+zmax_ft/wmax_ft ;%f4 document
+K_N = .001 ;%figure 4.68 
+a = 968;
+mu = 4.058*10^-4;
+RE_fuselage = (Mach*a*lb_ft)/(mu);
+K_Re_l =  2 ;
+c_n_beta_B = -57.3*K_N*K_Re_l *(SBS_ft/S_ft2)*(lb_ft/b_ft);
+X_V = 13.75; 
+Z_V = 7.664;
+c_n_beta_V = -C_Y_beta_V * (((X_V*cos((alpha_rad)))+(Z_V*sin((alpha_rad))))/b_ft);
+c_n_beta_H = -C_Y_beta_H * (((x_AC_H*cos((alpha_rad)))+(ZH_ft*sin((alpha_rad))))/b_ft);
+c_n_beta = c_n_beta_W+c_n_beta_B+c_n_beta_V+c_n_beta_H;
+%c_n_beta = .04567; %should be .04567
+ %- Done
+RME_I = 0.07;
+RME_F = .175;
+%delta_RME = RME_F-RME_I
+delta_RME = .105;
+c_l_delta_prime = 0; %need to add in 
+cbar_Aileron_ft/cWing_at_Aileron_ft;
+eta_I = yAI_ft/(b_ft/2); %verified
+eta_O = yAO_ft/(b_ft/2); %verified
+Beta_side_slip_angle = sqrt(1-Mach^2);
+rad2deg(Beta_side_slip_angle);
+(Beta_side_slip_angle*AR)/(K_AR);
+LambdaBeta = 64.72;
+delta_K_n_A = .28-.27;
+
+LambdaLE_half_deg = tand(LambdaLE_deg) - ((4*.5 *(1-lambda))/(AR*1+lambda));
+LambdaLE_half_rad = atand(LambdaLE_half_deg) * (pi/180);
+k = 1 + ((AR*(1.87 - (0.000233*Lambda_LE_rad)))/100);
+
+C_L_alpha_Wing_mach = (2*pi*AR)/(2+sqrt((((AR^2*(1-Mach^2))/(k^2))*(1+((tan(LambdaLE_half_rad)^2)/(1-Mach^2))))+4));
+k_RME = (C_L_alpha_Wing_mach * beta) /(2*pi);
+c_prime_l_delta = delta_RME*k_RME/beta;
+c_l_delta_A = c_prime_l_delta * tau_A;
 
 
+%- Done
+RME_I = 0.07;
+RME_F = .175;
+delta_RME = RME_F-RME_I;
+c_l_delta_prime = 0; %need to add in 
+cbar_Aileron_ft/cWing_at_Aileron_ft;
+eta_I = yAI_ft/(b_ft/2) ;%verified
+eta_O = yAO_ft/(b_ft/2); %verified
+Beta_side_slip_angle = sqrt(1-Mach^2);
+rad2deg(Beta_side_slip_angle);
+(Beta_side_slip_angle*AR)/(K_AR);
+LambdaBeta = 64.72;
+delta_K_n_A = .28-.27;
+%very small 6.77E-5
+c_n_delta_A = delta_K_n_A * c_L_1 * c_l_delta_A;
+%- Done 
+X_R = 27; % verified
+Z_R = 7.4;
+c_l_delta_R = (C_Y_delta_R/2) * (((Z_R*cos(alpha_rad)) - (X_R*sin(alpha_rad)))/b_ft);
+ %- Done
+c_n_delta_R = (-C_Y_delta_R) * (((X_R*cos(alpha_rad))+(Z_R*sin(alpha_rad)))/b_ft);
+% - Done
+beta = sqrt(1-Mach^2);
+disp(lambda)
+k = (C_L_alpha_Wing_mach*beta)/(2*pi);
+(beta*AR)/k ;%this aint right 
+clp_quarterchord_rad = (LambdaLE_quarter_rad);
+atand(clp_quarterchord_rad/(beta))
+RDP = -.225;
+c_l_p_W = RDP * (k/beta); %needs to ne -.11
+c_l_p_WB = c_l_p_W;
+%c_l_p_H
+beta = sqrt(1-Mach^2);
+disp(lambdaH)
+LambdaLEH_half_deg = tand(LambdaLEH_deg) - ((4*.5 *(1-lambdaH))/(ARH*1+lambdaH));
+LambdaLEH_half_rad = atand(LambdaLEH_half_deg) * (pi/180);
+LambdaLEH_rad = LambdaLEH_deg*(pi/180);
+k_H = 1 + ((8.2-(2.3*LambdaLEH_rad))-(ARH*(0.22-(.153*LambdaLEH_rad)))/100);
+C_L_alpha_H_mach = (2 * pi * ARH) / (2 + sqrt((((ARH^2 * (1 - Mach^2)) / (k_H^2)) + ((1+(tan(LambdaLEH_half_rad)^2)/(1-Mach^2)))+ 4)));
+%c_L_alpha_H_mach = (2*pi*ARH)/(2+sqrt((((ARH^2*(1-Mach^2))/(k_H^2))*(1+((tan(LambdaLEH_half_rad)^2)/(1-Mach^2))))+4))
+kH = (C_L_alpha_H_mach*beta)/(2*pi);
+(beta*ARH)/kH ;%this aint right 
+clp_quarterchord_radH = (LambdaLEH_quarter_rad);
+atand(clp_quarterchord_radH/(beta))
+RDPH = -.25;
+c_l_p_H = RDPH *(kH/beta)*0.5 * (c_l_p_W)*(S_H/S_ft2)*((bH_ft/b_ft)^2) ;
+%c_l_p_V
+c_l_p_v = 2*C_Y_beta_V * ((Z_V/b_ft)^2);
+c_l_p = c_l_p_W + c_l_p_H + c_l_p_v; % Need to verify
+% - Done
+c_Y_p = 2 * C_Y_beta_V * (((Z_V*cos(alpha_rad))-(X_V*sin(alpha_rad)))/b_ft);
+ %- Done
+delta_c_n_p_over_epsilon_W = -.0002;
+B = sqrt(1-((Mach^2)*cos(LambdaLE_quarter_rad)^2));
+C = (AR+(4*cos(LambdaLE_quarter_rad)))/(AR*B+(4*cos(LambdaLE_quarter_rad)));
+C = .9223; 
+cnpclpmach0 = -.1892;
+c_n_p_W = cnpclpmach0 * c_L_1 + (delta_c_n_p_over_epsilon_W * epsilonW_deg_assumed);
+
+c_n_p_V = -2 *C_Y_beta_V *  ((X_V*cos(alpha_rad)+(Z_V*sin((alpha_rad))))/b_ft) * (((Z_V*cos(alpha_rad))-(X_V*sin(alpha_rad))-Z_V)/b_ft);
+%c_n_p_V = -2*c_Y_beta_V*((X_V*cos(alpha_1) + Z_V*sin(alpha_1))/b)*((Z_V*cos(alpha_1)-X_V*sin(alpha_1)-Z_V)/b)
+c_n_p = c_n_p_V + c_n_p_W;
+
+ %- Done
+B = sqrt((1-Mach^2)*(cos(LambdaLE_quarter_rad)^2));
+D = (1 + AR*(1 - B^2)/(2*B * (AR*B + 2*cos(LambdaLE_quarter_rad))) + (AR*B + 2*cos(LambdaLE_quarter_rad/4))/(AR*B + 4*cos(LambdaLE_quarter_rad/4)) * tan(LambdaLE_quarter_rad/4)^2 / 8) / (1 + (AR+2*cos(LambdaLE_quarter_rad))/(AR+4*cos(LambdaLE_quarter_rad/4)) * tan(LambdaLE_quarter_rad/4)^2 / 8);
+delta_clr_epsilonW = .0085;
+c_l_r_V = -2 *C_Y_beta_V *  (((X_V*cos((alpha_rad)))+(Z_V*sin((alpha_rad))))/b_ft) * (((Z_V*cos(alpha_rad))-(X_V*sin(alpha_rad)))/b_ft) ;
+
+clr_cl1_mach_cl0 = .32;
+delta_clr_over_gamma = (1/12)*((pi*AR*sin(LambdaLE_quarter_rad))/(AR+4 *cos(LambdaLE_quarter_rad)));
+c_l_r_W = (clr_cl1_mach_cl0 * c_L_1) + delta_clr_over_gamma * GammaW_rad +delta_clr_epsilonW * epsilonW_deg_assumed;
+
+c_l_r = c_l_r_W + c_l_r_V;
+%c_l_r = .1643;
+
+ %- Done
+c_Y_r = -2 * C_Y_beta_V *((((X_V*cos((alpha_rad)))+(Z_V*sin((alpha_rad))))/b_ft));
+ %- Done with modification
+cnrcl1_squared = -.02;
+%cnr_cD0 = 
+c_n_r_W = cnrcl1_squared *(c_L_1^2);
+c_n_r_V = 2* (C_Y_beta_V-.05) *(((X_V*cos(alpha_rad))+Z_V*sin(alpha_rad))/(b_ft))^2;
+c_n_r = c_n_r_V+c_n_r_W ;%should be -.1128
+ %- Done with modification
+C_l_beta = 0;
+
+(rad2deg(LambdaLE_half_rad));
+c_l_beta_over_c_L_1 = -.0028 ;
+
+
+
+
+
+disp(lambda)
+dB = sqrt(SfAVG_ft2/(pi/4)); % diameter of the fuselage
+delta_clbeta_over_Gamma_W = -.0005 * AR * ((dB/b_ft)^2); %slide 30 (1/deg^2)
+
+delta_clbeta_ZW = ((1.2*sqrt(AR)));
+tand(rad2deg(LambdaLE_half_rad)) 
+
+
+
+Mach*(cosd((LambdaLE_half_rad)));
+AR/(cos((LambdaLE_half_rad)));
+K_M_Lambda = 1.1;
+
+A_ft/b_ft;
+AR/(cos((LambdaLE_half_rad)));
+K_f = .94;
+c_l_beta_c_L_1_LE_half = -.00094;
+
+c_l_beta_over_c_L_1_AR = (-2*10^-3); % 1/deg
+rad2deg((cos((LambdaLE_half_rad))))
+c_l_beta_over_Gamma = -1.25; %1/deg^2
+
+clbeta_cl1_Lambda_c__2 = -2.4*10^-3; % 1/deg 7/24 lec 9, not sure what lambda_c__2 =
+clbeta_cl1_AR = -2*10^-3; % 1/deg
+
+K_M_Lambda = 1.05; 
+K_f = 1.125; 
+
+clbeta_GW = -1.2*10^-4; % 1/degrees^2   
+K_M_Gamma = 1.07;
+
+S_f_avg = 24.6; %ft^2
+
+
+d_B = sqrt(S_f_avg/(pi/4));
+
+delta_clbeta_GW = -0.0005*AR*((d_B/b)^2); %1/deg^2
+delta_clbeta_Z_W = ((1.2*sqrt(AR))/57.3)*(Z_W/b)*((2*d_B)/b);
+
+corr_factor = -2*(10^-5); %1/deg^2
+ep_W = 2*pi/180; % rads
+
+Gamma_W = 4;
+block_5_1 = clbeta_cl1_Lambda_c__2*K_M_Lambda*K_f + clbeta_cl1_AR;
+block_5_2 = Gamma_W*(clbeta_GW*K_M_Gamma + delta_clbeta_GW) + delta_clbeta_Z_W;
+block_5_3 = ep_W*tan(Lambda_25_V)*corr_factor;
+
+c_l_beta_WB = 57.3*c_L_1*(block_5_1) + 57.3*(block_5_2 + block_5_3);
+
+Mach*(cosd((LambdaLE_half_rad)));
+
+K_M_Gamma = 1.1;
+epsilonWingTwist = -2.6; % 1/deg^2
+k_YV = .761;
+delta_clbeta_over_epsilonW = -2*10^-5;
+
+
+
+%c_l_beta_WB = 57.3 * c1 *(c_l_beta_over_c_L_1*K_M_Lambda*K_f*c_l_beta_over_c_L_1_AR) + 57.3 * ((GammaW_deg*((c_l_beta_over_Gamma*K_M_Gamma)+(delta_clbeta_over_Gamma_W ))) + delta_clbeta_ZW + epsilonW_deg_assumed * tan(LambdaLE_quarter_rad)*(delta_clbeta_over_epsilonW));
+
+c_l_beta_V = C_Y_beta_V * (((Z_V*cos(alpha_rad))-X_V*sin(alpha_rad))/b_ft);
+c_l_beta_H = (eta_H*(S_H/S_ft2)*(bH_ft/b_ft)) - (.01); %need to multiply this by c_l_beta_WB
+%c_l_beta = -.118; %around here 
+c_l_beta = c_l_beta_H+c_l_beta_V+c_l_beta_WB;
+
+Hw4Coeffs = [c_Y_beta c_Y_delta_A c_Y_delta_R c_n_beta c_n_delta_A c_n_delta_R c_l_beta c_l_delta_A c_l_delta_R c_l_p c_Y_p c_n_p c_l_r c_Y_r c_n_r];
 %% 
-
+c_L_1 = .26;
+c_D_1 = .030;
+c_m_1 = 0;
+c_T_X1 = .030;
+c_m_T1 = 0;
+Position1Coeffs = [c_L_1 c_D_1 c_m_1 c_T_X1 c_m_T1];
+uCoeffs = [c_L_u c_D_u]; %might be more needed here
 %below variables are needed for the fAx Equations
 c_D_u = 0;
 a = 968;
@@ -397,11 +647,11 @@ Forces = Ft+Fa;
 theta = 0;
 psi = 0;
 phi = 0;
-P=1;
-Q=1;
-W=1;
+P1=0;
+Q1=0;
 R=1;
-V=1;
+W=1;
+V1=0;
 U=1;
 
 u_dot=0;

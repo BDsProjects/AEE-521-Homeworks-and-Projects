@@ -1,4 +1,5 @@
 mass = 0;
+alpha1 = 2.6;
 g = -32.2;
 A_ft = 41.5;
 XHV_ft = 8.5;
@@ -74,7 +75,7 @@ deltaE = 0;
 deltaR = 0;
 deltaA = 0;
 alpha1_rad = deg2rad(alpha1);
-V_P_1 = uv/(cosalpha1_rad);
+V_P_1 = uv/(cos(alpha1_rad));
 u1 = V_P_1 * cosd(alpha1);
 q = 0; %pitching rate
 
@@ -94,7 +95,6 @@ c_D_1 = .030;
 c_m_1 = 0;
 c_T_X1 = .030;
 c_m_T1 = 0;
-alpha_rad = deg2rad(alpha);
 mass = Weight/32.2;
 c_L_u=((Mach^2)/(1-Mach^2))*c_L_1;
 
@@ -224,6 +224,8 @@ c_L_q = piece1+piece2+piece3 ;%G
 
 c_m_alphadot = -2*c_L_alpha_H_mach*eta_H*(S_H/S_ft2)*((xbar_AC_H - xbar_CG)^2)*d_epsilon_dalpha_mach; %G 
 
+K_q = 0.7;
+
 lefttopfrac = ((AR^3) * (tan(LambdaLE_quarter_rad)^2))/(AR+(6*cos(LambdaLE_quarter_rad)));
 righttopfrac = 3/(sqrt((1-Mach^2)*(cos(LambdaLE_quarter_rad)^2)));
 bottomfrac = (((AR^3) * (tan(LambdaLE_quarter_rad)^2))/(AR+(6*(tan(LambdaLE_quarter_rad)^2)))) +3;
@@ -244,12 +246,14 @@ c_D_alphadot = 0;
 c_D_q = 0;
 c_D_delta_E = 0;
 i_H = 0; %needs to be set as an array based of time 
-delta_stabilitator = 0;
+delta_Stabilitator = 0;
 deltaE = 0;
 deltaR = 0;
 deltaA = 0;
 c_D_0 = 0;
 
+c_D_i_H = 0; %Needs to be calculated
+c_m_u = 0; %needs to be calculated?
 
 
 %quaternions
@@ -286,6 +290,6 @@ InitialVelocity = [U v w]';
 InitialEulerOrientation = [phi theta psi]';
 
 InitialRotationRates = [p q r]';
-load('QuickModelCode.m')
+%load('QuickModelCode.m')
 modelname = 'QuickModel.slx';
 sim(modelname)

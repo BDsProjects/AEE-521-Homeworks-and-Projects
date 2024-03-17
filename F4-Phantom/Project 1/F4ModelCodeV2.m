@@ -537,6 +537,10 @@ V1 = 0;
 fTx = 0;
 fTy = 0;
 fTz = 0;
+FTx = 0;
+FTy = 0;
+FTz = 0;
+
 %% Unsure abt these
 c_d_delta_E = 0;
 c_D_q = 0;

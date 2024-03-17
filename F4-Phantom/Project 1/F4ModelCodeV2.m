@@ -53,6 +53,7 @@ XACR_ft = 15.1;
 eta_H = 0.85;
 eta_V = 0.9;
 tau_E = 0.5;
+tau_A = 0.44;
 e = .95;
 K_q = 0.7;
 
@@ -246,7 +247,7 @@ cbarV =  (2/3 * crV_ft*((1+lambdaV+lambdaV^2))/(1+lambdaV));
 b2V_ft = (2*bV_ft);
 S2V = (b2V_ft/2)*crV_ft*(1+lambdaV);
 AR2_V = (b2V_ft^2)/S2V;
-
+beta1 = sqrt(1-Mach^2);
 
 
 K_Y_V = .76;
@@ -327,8 +328,8 @@ LambdaLE_half_rad = atand(LambdaLE_half_deg) * (pi/180);
 k = 1 + ((AR*(1.87 - (0.000233*LambdaLE_rad)))/100);
 
 c_L_alpha_Wing_mach = (2*pi*AR)/(2+sqrt((((AR^2*(1-Mach^2))/(k^2))*(1+((tan(LambdaLE_half_rad)^2)/(1-Mach^2))))+4));
-k_RME = (c_L_alpha_Wing_mach * beta) /(2*pi);
-c_prime_l_delta = delta_RME*k_RME/beta;
+k_RME = (c_L_alpha_Wing_mach * beta1) /(2*pi);
+c_prime_l_delta = delta_RME*k_RME/beta1;
 c_l_delta_A = c_prime_l_delta * tau_A;
 
 
@@ -354,30 +355,30 @@ c_l_delta_R = (c_Y_delta_R/2) * (((Z_R*cos(alpha_rad)) - (X_R*sin(alpha_rad)))/b
  %- Done
 c_n_delta_R = (-c_Y_delta_R) * (((X_R*cos(alpha_rad))+(Z_R*sin(alpha_rad)))/b_ft);
 % - Done
-beta = sqrt(1-Mach^2);
+beta1 = sqrt(1-Mach^2);
 disp(lambda)
-k = (c_L_alpha_Wing_mach*beta)/(2*pi);
-(beta*AR)/k ;%this aint right 
+k = (c_L_alpha_Wing_mach*beta1)/(2*pi);
+(beta1*AR)/k ;%this aint right 
 clp_quarterchord_rad = (LambdaLE_quarter_rad);
-atand(clp_quarterchord_rad/(beta))
+atand(clp_quarterchord_rad/(beta1))
 RDP = -.225;
-c_l_p_W = RDP * (k/beta); %needs to ne -.11
+c_l_p_W = RDP * (k/beta1); %needs to ne -.11
 c_l_p_WB = c_l_p_W;
 %c_l_p_H
-beta = sqrt(1-Mach^2);
+beta1 = sqrt(1-Mach^2);
 disp(lambdaH)
 LambdaLEH_half_deg = tand(LambdaLEH_deg) - ((4*.5 *(1-lambdaH))/(ARH*1+lambdaH));
 LambdaLEH_half_rad = atand(LambdaLEH_half_deg) * (pi/180);
 LambdaLEH_rad = LambdaLEH_deg*(pi/180);
 k_H = 1 + ((8.2-(2.3*LambdaLEH_rad))-(ARH*(0.22-(.153*LambdaLEH_rad)))/100);
-C_L_alpha_H_mach = (2 * pi * ARH) / (2 + sqrt((((ARH^2 * (1 - Mach^2)) / (k_H^2)) + ((1+(tan(LambdaLEH_half_rad)^2)/(1-Mach^2)))+ 4)));
+c_L_alpha_H_mach = (2 * pi * ARH) / (2 + sqrt((((ARH^2 * (1 - Mach^2)) / (k_H^2)) + ((1+(tan(LambdaLEH_half_rad)^2)/(1-Mach^2)))+ 4)));
 %c_L_alpha_H_mach = (2*pi*ARH)/(2+sqrt((((ARH^2*(1-Mach^2))/(k_H^2))*(1+((tan(LambdaLEH_half_rad)^2)/(1-Mach^2))))+4))
-kH = (C_L_alpha_H_mach*beta)/(2*pi);
-(beta*ARH)/kH ;%this aint right 
+kH = (c_L_alpha_H_mach*beta1)/(2*pi);
+(beta1*ARH)/kH ;%this aint right 
 clp_quarterchord_radH = (LambdaLEH_quarter_rad);
-atand(clp_quarterchord_radH/(beta))
+atand(clp_quarterchord_radH/(beta1))
 RDPH = -.25;
-c_l_p_H = RDPH *(kH/beta)*0.5 * (c_l_p_W)*(S_H/S_ft2)*((bH_ft/b_ft)^2) ;
+c_l_p_H = RDPH *(kH/beta1)*0.5 * (c_l_p_W)*(S_H/S_ft2)*((bH_ft/b_ft)^2) ;
 %c_l_p_V
 c_l_p_v = 2*c_Y_beta_V * ((Z_V/b_ft)^2);
 c_l_p = c_l_p_W + c_l_p_H + c_l_p_v; % Need to verify
@@ -417,7 +418,7 @@ c_n_r_W = cnrcl1_squared *(c_L_1^2);
 c_n_r_V = 2* (c_Y_beta_V-.05) *(((X_V*cos(alpha_rad))+Z_V*sin(alpha_rad))/(b_ft))^2;
 c_n_r = c_n_r_V+c_n_r_W ;%should be -.1128
  %- Done with modification
-c_l_beta = 0;
+
 
 (rad2deg(LambdaLE_half_rad));
 c_l_beta_over_c_L_1 = -.0028 ;
@@ -462,8 +463,8 @@ S_f_avg = 24.6; %ft^2
 
 d_B = sqrt(S_f_avg/(pi/4));
 
-delta_clbeta_GW = -0.0005*AR*((d_B/b)^2); %1/deg^2
-delta_clbeta_Z_W = ((1.2*sqrt(AR))/57.3)*(Z_W/b)*((2*d_B)/b);
+delta_clbeta_GW = -0.0005*AR*((d_B/b_ft)^2); %1/deg^2
+delta_clbeta_Z_W = ((1.2*sqrt(AR))/57.3)*(ZW_ft/b_ft)*((2*d_B)/b_ft);
 
 corr_factor = -2*(10^-5); %1/deg^2
 ep_W = 2*pi/180; % rads
@@ -471,7 +472,7 @@ ep_W = 2*pi/180; % rads
 Gamma_W = 4;
 block_5_1 = clbeta_cl1_Lambda_c__2*K_M_Lambda*K_f + clbeta_cl1_AR;
 block_5_2 = Gamma_W*(clbeta_GW*K_M_Gamma + delta_clbeta_GW) + delta_clbeta_Z_W;
-block_5_3 = ep_W*tan(Lambda_25_V)*corr_factor;
+block_5_3 = ep_W*tan(LambdaLEV_rad_quarter)*corr_factor;
 
 c_l_beta_WB = 57.3*c_L_1*(block_5_1) + 57.3*(block_5_2 + block_5_3);
 

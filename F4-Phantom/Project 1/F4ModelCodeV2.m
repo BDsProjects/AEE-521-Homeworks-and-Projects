@@ -575,9 +575,39 @@ i_H_vec = horzcat(timeVec,i_H);
 
 
 
-modelname = 'F4PhantomRemodel.slx';
+modelname = 'F4PhantomRunningModel.slx';
 %sim(modelname)
 
+
+
+
+%% Plot Section and Variable Outputs
+
+figure
+subplot(4,1,1);
+plot(time,rad2deg(beta),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('beta (ft/s)')
+title('Rudder Doublet vs Time')
+grid on
+
+subplot(4,1,2); 
+plot(time,rad2deg(phi),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('ϕ (deg)')
+grid on
+
+subplot(4,1,3);
+plot(time,rad2deg(phi),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel(' ψ (deg)')
+grid on
+
+subplot(4,1,4);
+plot(time,rad2deg(delR_vector(:,end)),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('del_R (deg)')
+grid on
 
 
 

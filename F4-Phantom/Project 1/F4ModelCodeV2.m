@@ -506,13 +506,23 @@ uCoeffs = [c_L_u c_D_u c_m_u];
 %% Quaternion Block Initialization
 Xe = 0;
 Ye = 0;
-Ze = 0;
+Ze = 35000;
 InitialInertialPosition = [Xe Ye Ze];
+% 
+% Xe1 = 0;
+% Ye1 = 0;
+% Ze1 = 0;
+% SecondInertialPosition = [Xe1 Ye1 Ze1];
 
-U = 0;
+U = uv;
 v = 0;
 w = 0;
 InitialVelocity = [U v w];
+
+% U1 = 0;
+% v1 = 0;
+% w1 = 0;
+% SecondVelocity = [U1 v1 w1];
 
 phi = 0;
 theta = 0;
@@ -524,11 +534,33 @@ q = 0;
 r = 0;
 InitialRotationRates = [p q r];
 
+% p1 = 0;
+% q1 = 0;
+% r1 = 0;
+% SecondRotationRates = [p1 q1 r1];
+
 qr = 1.0;
 qi = 0;
 qj = 0;
 qk = 0;
-quat = [qr qi qj qk];
+quat = [qr qi qj qk]';
+
+% qr1 = 0;
+% qi1 = 0;
+% qj1 = 0;
+% qk1 = 0;
+% quat1 = [qr1 qi1 qj1 qk1];
+IXX = 25000; %slug/ft^2
+IYY = 122200; %slug/ft^2
+IZZ = 139800; %slug/ft^2
+IXZ = 2200; %slug/ft^2 Might be different values
+
+I = [IXX 0 -IXZ; 
+     0   IYY 0; 
+     0 0 IZZ];
+
+%Quaternion States
+
 %% Assumptions
 P1 = 0;
 Q1= 0;
@@ -563,10 +595,11 @@ uk = [c_D_delta_E c_D_q c_D_i_H c_Y_1 c_Y_betadot c_l_betadot c_n_1 c_n_betadot]
 U1 = V_P_1 * cos(alpha_rad);
 W1 = V_P_1 * sin(alpha_rad);
 V1 = 0;
+%% 
 
 
 t_final = 60.0;
-Ts = 0.01;
+Ts = 0.001;
 
 timeVec = [0:Ts:t_final]';
 
@@ -607,7 +640,7 @@ deltaR_vector = horzcat(timeVec,deltaR);
 % CSv = [deltaA_vector deltaS_vector deltaR_vector];
 %% Aileron Movement
 t_final = 60.0;
-Ts = 0.01;
+Ts = 0.001;
 
 timeVec = [0:Ts:t_final]';
 
@@ -627,7 +660,7 @@ deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
 %% Rudder Movement
 t_final = 60.0;
-Ts = 0.01;
+Ts = 0.001;
 
 timeVec = [0:Ts:t_final]';
 
@@ -648,7 +681,7 @@ deltaR_vector = horzcat(timeVec,deltaR);
 
 %% Stabilator Movement
 t_final = 60.0;
-Ts = 0.01;
+Ts = 0.001;
 
 timeVec = [0:Ts:t_final]';
 

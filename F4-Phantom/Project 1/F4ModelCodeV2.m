@@ -570,10 +570,51 @@ Ts = 0.01;
 
 timeVec = [0:Ts:t_final]';
 
-deltaA = zeros(6001,1);
-deltaS = zeros(6001,1);
-deltaR = zeros(6001,1);
-i_H = zeros(6001,1);
+deltaA = zeros(length(timeVec),1);
+% deltaS = zeros(length(timeVec),1);
+deltaR = zeros(length(timeVec),1);
+i_H = zeros(length(timeVec),1);
+
+deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+doubletMag = 2;
+deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
+deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
+deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+doubletMag = 2;
+deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
+deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% deltaS = zeros(length(timeVec),1);
+% deltaS_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% deltaS_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% doubletMag = 2;
+% deltaS(deltaS_doublet_up_Idx,1) = deg2rad(doubletMag);
+% deltaS(deltaS_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% deltaS_vector = horzcat(timeVec,deltaS);
+
+i_H_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+i_H_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+doubletMag = 2;
+i_H(i_H_doublet_up_Idx,1) = deg2rad(doubletMag);
+i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
+
+i_H_vector = horzcat(timeVec,i_H);
+deltaA_vector = horzcat(timeVec,deltaA);
+deltaR_vector = horzcat(timeVec,deltaR);
+
+% CSc = [deltaA deltaS deltaR];
+% CSv = [deltaA_vector deltaS_vector deltaR_vector];
+%% Aileron Movement
+t_final = 60.0;
+Ts = 0.01;
+
+timeVec = [0:Ts:t_final]';
+
+deltaA = zeros(length(timeVec),1);
+% deltaS = zeros(length(timeVec),1);
+deltaR = zeros(length(timeVec),1);
+i_H = zeros(length(timeVec),1);
 
 deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
 deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
@@ -581,25 +622,49 @@ doubletMag = 2;
 deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
 deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
 
-% deltaR = zeros(length(timeVec),1);
-% deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
-% deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
-% doubletMag = 2;
-% deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
-% deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+i_H_vector = horzcat(timeVec,i_H);
+deltaA_vector = horzcat(timeVec,deltaA);
+deltaR_vector = horzcat(timeVec,deltaR);
+%% Rudder Movement
+t_final = 60.0;
+Ts = 0.01;
+
+timeVec = [0:Ts:t_final]';
+
+deltaA = zeros(length(timeVec),1);
 % deltaS = zeros(length(timeVec),1);
-% deltaS_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
-% deltaS_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
-% doubletMag = 2;
-% deltaS(deltaS_doublet_up_Idx,1) = deg2rad(doubletMag);
-% deltaS(deltaS_doublet_down_Idx,1) = deg2rad(-doubletMag);
-deltaS_vector = horzcat(timeVec,deltaS);
+deltaR = zeros(length(timeVec),1);
+i_H = zeros(length(timeVec),1);
+
+deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+doubletMag = 2;
+deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
+deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+
 i_H_vector = horzcat(timeVec,i_H);
 deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
 
-CSc = [deltaA deltaS deltaR];
-CSv = [deltaA_vector deltaS_vector deltaR_vector];
+%% Stabilator Movement
+t_final = 60.0;
+Ts = 0.01;
+
+timeVec = [0:Ts:t_final]';
+
+deltaA = zeros(length(timeVec),1);
+deltaR = zeros(length(timeVec),1);
+i_H = zeros(length(timeVec),1);
+
+i_H_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+i_H_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+doubletMag = 2;
+i_H(i_H_doublet_up_Idx,1) = deg2rad(doubletMag);
+i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
+
+i_H_vector = horzcat(timeVec,i_H);
+deltaA_vector = horzcat(timeVec,deltaA);
+deltaR_vector = horzcat(timeVec,deltaR);
 %% 
 
 % WhichCase = input("What casue would you like to run, stable, deltaA, deltaS, or deltaR?", "s");
@@ -656,7 +721,7 @@ CSv = [deltaA_vector deltaS_vector deltaR_vector];
 % deltaA_vector = horzcat(timeVec,deltaA);
 % deltaS_vector = horzcat(timeVec,deltaS);
 % deltaR_vector = horzcat(timeVec,deltaR);
-% %iH_vector = horzcat(timeVec,delta_iH);
+% iH_vector = horzcat(timeVec,delta_iH);
 % CSc = [deltaA_vector deltaS_vector deltaR_vector];
 
 

@@ -89,7 +89,7 @@ alpha_rad = deg2rad(alpha1);
 mass = Weight/32.2;
 uv = Mach*a;
 
-InitialInputs = [qbar1 S_ft2 c_D_1 c_L_1 cbar_ft c_m_1 uv];
+InitialInputs = [qbar1 S_ft2 c_D_1 c_L_1 cbar_ft c_m_1 uv b_ft];
 deltaA = 0;
 deltaR = 0;
 deltaS = 0;
@@ -492,7 +492,7 @@ c_l_beta_H = (eta_H*(S_H/S_ft2)*(bH_ft/b_ft)) - (.01); %need to multiply this by
 c_l_beta = c_l_beta_H+c_l_beta_V+c_l_beta_WB;
 
 Hw4Coeffs = [c_Y_beta c_Y_delta_A c_Y_delta_R c_n_beta c_n_delta_A c_n_delta_R c_l_beta c_l_delta_A c_l_delta_R c_l_p c_Y_p c_n_p c_l_r c_Y_r c_n_r];
-
+%c_m_q = 
 %% u Terms
 c_L_u = ((Mach^2)/(1-Mach^2))*c_L_1;
 c_D_u = 0;
@@ -542,21 +542,35 @@ FTy = 0;
 FTz = 0;
 
 %% Unsure abt these
-c_d_delta_E = 0;
+c_D_delta_E = 0;
 c_D_q = 0;
 c_D_i_H = -.10;
-V_P_1 = w/alpha_rad;
-uk = [c_d_delta_E c_D_q c_D_i_H];
+V_P_1 = 875.6;
+c_Y_1 = 0;
+c_Y_betadot = 0;
+c_l_betadot = 0;
+c_n_1 = 0;
+c_n_betadot = 0;
+
+uk = [c_D_delta_E c_D_q c_D_i_H c_Y_1 c_Y_betadot c_l_betadot c_n_1 c_n_betadot];
+
 
 
 %% Input Generation
+
+U1 = V_P_1 * cos(alpha_rad);
+W1 = V_P_1 * sin(alpha_rad);
+
+
 
 t_final = 60.0;
 Ts = 0.01;
 
 timeVec = [0:Ts:t_final]';
 
-deLE = zeros(length(timeVec),1);
+deltaA = zeros(length(timeVec),1);
+deltaS = zeros(length(timeVec),1);
+deltaR = zeros(length(timeVec),1);
 i_H = zeros(length(timeVec),1);
 
 deLE_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
@@ -564,19 +578,64 @@ deLE_doublet_dn_Idx = find(timeVec >= 15 & timeVec <= 17);
 
 doubletMag = 2;
 
-deLE(deLE_doublet_up_Idx,1) = deg2rad(doubletMag);
-deLE(deLE_doublet_dn_Idx,1) = deg2rad(-doubletMag);
+%deLE(deLE_doublet_up_Idx,1) = deg2rad(doubletMag);
+%deLE(deLE_doublet_dn_Idx,1) = deg2rad(-doubletMag);
 
-deLE_vec = horzcat(timeVec,deLE);
+%deLE_vec = horzcat(timeVec,deLE);
 i_H_vec = horzcat(timeVec,i_H);
+
+
+WhichCase = input("What casue would you like to run, stable, deltaA, deltaS, or deltaR?", "s");
+for i = 1:4
+
+    if WhichCase == "stable"
+        deltaA = zeros(length(timeVec),1);
+        deltaS = zeros(length(timeVec),1);
+        deltaR = zeros(length(timeVec),1);
+        i_H = zeros(length(timeVec),1);
+    elseif WhichCase == "deltaA"
+
+        deltaA = zeros(length(timeVec),1);
+        deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+        deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+        doubletMag = 2;
+        deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
+        deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
+        disp(deltaA)
+        
+
+    elseif WhichCase == "deltaR"
+        deltaR = zeros(length(timeVec),1);
+        deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+        deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+        doubletMag = 2;
+        deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
+        deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+    elseif WhichCase == "deltaS"
+        deltaS = zeros(length(timeVec),1);
+        deltaS_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+        deltaS_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+        doubletMag = 2;
+        deltaS(deltaS_doublet_up_Idx,1) = deg2rad(doubletMag);
+        deltaS(deltaS_doublet_down_Idx,1) = deg2rad(-doubletMag);
+    else
+        print("The incorrect case was used. Please use one of the 4 options listed in the input question.")
+
+    end 
+end 
 
 %% Model Simulation
 
 
+deltaA_vector = horzcat(timeVec,deltaA);
+deltaS_vector = horzcat(timeVec,deltaS);
+deltaR_vector = horzcat(timeVec,deltaR);
+%iH_vector = horzcat(timeVec,delta_iH);
+CSc = [deltaA_vector deltaS_vector deltaR_vector];
 
 
 modelname = 'F4PhantomRunningModel.slx';
-%sim(modelname)
+sim(modelname)
 
 
 
@@ -609,5 +668,11 @@ xlabel('Time (secs)')
 ylabel('del_R (deg)')
 grid on
 
-
+%% Output Forces and Moments
+disp(FAx)
+disp(FAy)
+disp(FAz)
+disp(LA)
+disp(NA)
+disp(MA)
 

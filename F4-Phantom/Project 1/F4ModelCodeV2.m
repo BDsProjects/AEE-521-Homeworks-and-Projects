@@ -98,6 +98,7 @@ InitialInputs = [qbar1 S_ft2 c_D_1 c_L_1 cbar_ft c_m_1 uv b_ft alphadot];
 % 
 % CS = [deltaA deltaS deltaR];
 
+time = 0;
 %% Hw3
 lambda = cT_ft/cr_ft;
 S_ft2;
@@ -595,52 +596,52 @@ uk = [c_D_delta_E c_D_q c_D_i_H c_Y_1 c_Y_betadot c_l_betadot c_n_1 c_n_betadot]
 U1 = V_P_1 * cos(alpha_rad);
 W1 = V_P_1 * sin(alpha_rad);
 V1 = 0;
-%% 
-
-
-t_final = 60.0;
-Ts = 0.001;
-
-timeVec = [0:Ts:t_final]';
-
-deltaA = zeros(length(timeVec),1);
-% deltaS = zeros(length(timeVec),1);
-deltaR = zeros(length(timeVec),1);
-i_H = zeros(length(timeVec),1);
-
-deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
-deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
-doubletMag = 2;
-deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
-deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
-deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
-deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
-doubletMag = 2;
-deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
-deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
-% deltaS = zeros(length(timeVec),1);
-% deltaS_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
-% deltaS_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% %% 
+% 
+% 
+% t_final = 60.0;
+% Ts = 0.001;
+% 
+% timeVec = [0:Ts:t_final]';
+% 
+% deltaA = zeros(length(timeVec),1);
+% % deltaS = zeros(length(timeVec),1);
+% deltaR = zeros(length(timeVec),1);
+% i_H = zeros(length(timeVec),1);
+% 
+% deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
 % doubletMag = 2;
-% deltaS(deltaS_doublet_up_Idx,1) = deg2rad(doubletMag);
-% deltaS(deltaS_doublet_down_Idx,1) = deg2rad(-doubletMag);
-% deltaS_vector = horzcat(timeVec,deltaS);
-
-i_H_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
-i_H_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
-doubletMag = 2;
-i_H(i_H_doublet_up_Idx,1) = deg2rad(doubletMag);
-i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
-
-i_H_vector = horzcat(timeVec,i_H);
-deltaA_vector = horzcat(timeVec,deltaA);
-deltaR_vector = horzcat(timeVec,deltaR);
-
-% CSc = [deltaA deltaS deltaR];
-% CSv = [deltaA_vector deltaS_vector deltaR_vector];
+% deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
+% deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% doubletMag = 2;
+% deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
+% deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% % deltaS = zeros(length(timeVec),1);
+% % deltaS_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% % deltaS_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% % doubletMag = 2;
+% % deltaS(deltaS_doublet_up_Idx,1) = deg2rad(doubletMag);
+% % deltaS(deltaS_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% % deltaS_vector = horzcat(timeVec,deltaS);
+% 
+% i_H_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% i_H_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% doubletMag = 2;
+% i_H(i_H_doublet_up_Idx,1) = deg2rad(doubletMag);
+% i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% 
+% i_H_vector = horzcat(timeVec,i_H);
+% deltaA_vector = horzcat(timeVec,deltaA);
+% deltaR_vector = horzcat(timeVec,deltaR);
+% 
+% % CSc = [deltaA deltaS deltaR];
+% % CSv = [deltaA_vector deltaS_vector deltaR_vector];
 %% Aileron Movement
-t_final = 60.0;
-Ts = 0.001;
+t_final = 20.0;
+Ts = 0.01;
 
 timeVec = [0:Ts:t_final]';
 
@@ -659,8 +660,8 @@ i_H_vector = horzcat(timeVec,i_H);
 deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
 %% Rudder Movement
-t_final = 60.0;
-Ts = 0.001;
+t_final = 20.0;
+Ts = 0.01;
 
 timeVec = [0:Ts:t_final]';
 
@@ -679,9 +680,10 @@ i_H_vector = horzcat(timeVec,i_H);
 deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
 
+
 %% Stabilator Movement
-t_final = 60.0;
-Ts = 0.001;
+t_final = 20.0;
+Ts = 0.01;
 
 timeVec = [0:Ts:t_final]';
 
@@ -698,6 +700,8 @@ i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
 i_H_vector = horzcat(timeVec,i_H);
 deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
+
+
 %% 
 
 % WhichCase = input("What casue would you like to run, stable, deltaA, deltaS, or deltaR?", "s");
@@ -764,34 +768,94 @@ sim(modelname)
 
 
 
-%% Plot Section and Variable Outputs
+%% Rudder Plot Section and Variable Outputs
+
+% beta1Angles = beta1(:,0);
 
 figure
 subplot(4,1,1);
-plot(time,rad2deg(beta),'linewidth',1.5)
+plot(timeVec,rad2deg(beta1),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('beta (deg)')
+title('Rudder Doublet vs Time')
+grid on
+
+subplot(4,1,2); 
+plot(timeVec,rad2deg(phi),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('ϕ (deg)')
+grid on
+
+subplot(4,1,3);
+plot(timeVec,rad2deg(phi),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel(' ψ (deg)')
+grid on
+
+subplot(4,1,4);
+plot(timeVec,rad2deg(deltaR_vector(:,end)),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('del_R (deg)')
+grid on
+
+
+%Need to get exports as values and not the timeseries
+
+%% Aileron Plot Section and Variable Outputs
+
+figure
+subplot(4,1,1);
+plot(timeVec,rad2deg(beta1),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('beta (ft/s)')
 title('Rudder Doublet vs Time')
 grid on
 
 subplot(4,1,2); 
-plot(time,rad2deg(phi),'linewidth',1.5)
+plot(timeVec,rad2deg(phi),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('ϕ (deg)')
 grid on
 
 subplot(4,1,3);
-plot(time,rad2deg(phi),'linewidth',1.5)
+plot(timeVec,rad2deg(phi),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel(' ψ (deg)')
 grid on
 
 subplot(4,1,4);
-plot(time,rad2deg(delR_vector(:,end)),'linewidth',1.5)
+plot(timeVec,rad2deg(deltaA_vector(:,end)),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('del_R (deg)')
 grid on
 
+%% Stabilitator Plot Section and Variable Outputs
+
+figure
+subplot(4,1,1);
+plot(timeVec,U,'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('beta (ft/s)')
+title('Rudder Doublet vs Time')
+grid on
+
+subplot(4,1,2); 
+plot(timeVec,rad2deg(alpha1),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('ϕ (deg)')
+grid on
+
+subplot(4,1,3);
+plot(timeVec,rad2deg(theta),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel(' ψ (deg)')
+grid on
+
+subplot(4,1,4);
+plot(timeVec,i_H_vector(:,end),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('del_R (deg)')
+grid on
 %% Output Forces and Moments
 disp(FAx)
 disp(FAy)

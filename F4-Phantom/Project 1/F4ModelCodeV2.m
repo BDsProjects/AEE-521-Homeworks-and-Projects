@@ -770,7 +770,7 @@ deltaR_vector = horzcat(timeVec,deltaR);
 % CSc = [deltaA_vector deltaS_vector deltaR_vector];
 
 
-modelname = 'F4PhantomRunningModel.slx';
+modelname = 'F4PhantomModel.slx';
 sim(modelname)
 
 

@@ -105,10 +105,6 @@ w_dot = 0;
 phidot = 0;
 thetadot= 0;
 psidot = 0;
-u=0;
-v=0;
-w=0;
-
 
 LT = 0;
 NT=0;
@@ -660,10 +656,10 @@ V1 = 0;
 % % CSc = [deltaA deltaS deltaR];
 % % CSv = [deltaA_vector deltaS_vector deltaR_vector];
 %% Aileron Movement
-tf = 30.0;
+t_final = 30.0;
 Ts = 0.01;
 
-timeVec = [0:Ts:tf]';
+timeVec = [0:Ts:t_final]';
 
 deltaA = zeros(length(timeVec),1);
 % deltaS = zeros(length(timeVec),1);
@@ -680,10 +676,10 @@ i_H_vector = horzcat(timeVec,i_H);
 deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
 %% Rudder Movement
-tf = 30.0;
+t_final = 30.0;
 Ts = 0.01;
 
-timeVec = [0:Ts:tf]';
+timeVec = [0:Ts:t_final]';
 
 deltaA = zeros(length(timeVec),1);
 % deltaS = zeros(length(timeVec),1);
@@ -702,10 +698,10 @@ deltaR_vector = horzcat(timeVec,deltaR);
 
 
 %% Stabilator Movement
-tf = 30.0;
+t_final = 30.0;
 Ts = 0.01;
 
-timeVec = [0:Ts:tf]';
+timeVec = [0:Ts:t_final]';
 
 deltaA = zeros(length(timeVec),1);
 deltaR = zeros(length(timeVec),1);

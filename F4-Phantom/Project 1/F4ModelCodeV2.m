@@ -256,6 +256,37 @@ c_m_q = (frac * secondpiece * thirdpiece) + fourthpiece;
 
 
 Hw3Coeffs = [c_L_alpha c_L_delta_E c_L_i_H c_m_alpha c_m_delta_E c_m_i_H c_L_alphadot c_L_q c_m_alphadot c_m_q c_D_alpha];
+%% Hw3 Answer Key
+c_L_alpha = 3.75;
+c_L_delta_E =0;
+c_L_i_H =.4;
+c_m_alpha =-.4;
+c_m_delta_E =0;
+c_m_i_H =-.580;
+c_L_alphadot = .86; 
+c_L_q =1.8;
+c_m_alphadot =-1.3;
+c_m_q =-2.7;
+c_D_alpha = .3;
+Hw3Coeffs = [c_L_alpha c_L_delta_E c_L_i_H c_m_alpha c_m_delta_E c_m_i_H c_L_alphadot c_L_q c_m_alphadot c_m_q c_D_alpha];
+%% Hw4 Answer Key
+
+c_Y_beta
+c_Y_delta_A
+c_Y_delta_R
+c_n_beta
+c_n_delta_A
+c_n_delta_R
+c_l_beta = 
+c_l_delta_A = .0420;
+c_l_delta_R = .0060;
+c_l_p = -.240;
+c_Y_p = 0;
+c_n_p = -.036;
+c_l_r = .070;
+c_Y_r = 0;
+c_n_r = -.27;
+Hw4Coeffs = [c_Y_beta c_Y_delta_A c_Y_delta_R c_n_beta c_n_delta_A c_n_delta_R c_l_beta c_l_delta_A c_l_delta_R c_l_p c_Y_p c_n_p c_l_r c_Y_r c_n_r];
 %% Hw4
 lambdaV = cTV_ft/crV_ft;
 S_V = (bV_ft/2)*crV_ft*(1+(cTV_ft/crV_ft));
@@ -660,7 +691,7 @@ V1 = 0;
 % % CSc = [deltaA deltaS deltaR];
 % % CSv = [deltaA_vector deltaS_vector deltaR_vector];
 %% Aileron Movement
-tf = 30.0;
+tf = 20.0;
 Ts = 0.01;
 
 timeVec = [0:Ts:tf]';
@@ -680,7 +711,7 @@ i_H_vector = horzcat(timeVec,i_H);
 deltaA_vector = horzcat(timeVec,deltaA);
 deltaR_vector = horzcat(timeVec,deltaR);
 %% Rudder Movement
-tf = 30.0;
+tf = 20.0;
 Ts = 0.01;
 
 timeVec = [0:Ts:tf]';
@@ -702,7 +733,7 @@ deltaR_vector = horzcat(timeVec,deltaR);
 
 
 %% Stabilator Movement
-tf = 30.0;
+tf = 20.0;
 Ts = 0.01;
 
 timeVec = [0:Ts:tf]';
@@ -782,7 +813,7 @@ deltaR_vector = horzcat(timeVec,deltaR);
 % CSc = [deltaA_vector deltaS_vector deltaR_vector];
 
 
-modelname = 'F4PhantomModel.slx';
+modelname = 'F4PhantomRunningModel.slx';
 sim(modelname)
 
 
@@ -825,20 +856,20 @@ grid on
 
 figure
 subplot(4,1,1);
-plot(timeVec,rad2deg(beta1),'linewidth',1.5)
+plot(timeVec,(beta1),'linewidth',1.5)
 xlabel('Time (secs)')
-ylabel('beta (ft/s)')
+ylabel('beta (deg)')
 title('Rudder Doublet vs Time')
 grid on
 
 subplot(4,1,2); 
-plot(timeVec,rad2deg(phi),'linewidth',1.5)
+plot(timeVec,(phi),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('ϕ (deg)')
 grid on
 
 subplot(4,1,3);
-plot(timeVec,rad2deg(phi),'linewidth',1.5)
+plot(timeVec,(psi),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel(' ψ (deg)')
 grid on

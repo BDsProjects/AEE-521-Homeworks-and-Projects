@@ -106,6 +106,14 @@ phidot = 0;
 thetadot= 0;
 psidot = 0;
 
+LT = 0;
+NT=0;
+MT=0;
+lT = 0;
+mT = 0;
+nT = 0;
+
+
 q0 = angle2quat(phidot,thetadot,psidot);
 %% Hw3
 lambda = cT_ft/cr_ft;

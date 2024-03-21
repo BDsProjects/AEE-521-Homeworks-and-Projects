@@ -98,7 +98,15 @@ InitialInputs = [qbar1 S_ft2 c_D_1 c_L_1 cbar_ft c_m_1 uv b_ft alphadot];
 % 
 % CS = [deltaA deltaS deltaR];
 
-time = 0;
+% Initial Conditions
+u_dot = 0;
+v_dot = 0;
+w_dot = 0;
+phidot = 0;
+thetadot= 0;
+psidot = 0;
+
+q0 = angle2quat(phidot,thetadot,psidot);
 %% Hw3
 lambda = cT_ft/cr_ft;
 S_ft2;

@@ -17,7 +17,9 @@ cWing_at_Aileron_ft = 11.9;
 yV_ft = 5.2;
 cr_ft = 18.0;
 ZRS_ft = 7.4;
-crH_ft = 7.6;
+% Modified for Q2 Part D
+crH_ft = 7.6/2;
+% Modified for Q2 Part D
 z1_ft = 6.8;
 crV_ft = 16.4;
 z2_ft = 6.9;
@@ -139,17 +141,17 @@ LambdaLE_quarter_rad = atand(LambdaLE_quarter_deg) * (pi/180);
 
 K_AR = (1/AR)-(1/(1+(AR^1.7)));
 K_lambda = (10-(3*lambda))/7;
-Z_WH = ZWHr_ft + (crH_ft/4) - (cR_ft/4); %need to change 
+Z_WH = ZWHr_ft + (crH_ft/4) - (cR_ft/4); %Changes from part D
 m = (2*Z_WH)/b_ft;
-X_WH = XWHr_ft + (crH_ft/4) - (cr_ft/4);
-r = (2*X_WH)/b_ft;
-K_mr = (1-(m/2))/(r^.33);
-K_mr = .819;
-d_epsilon_dalpha_mach0 = 4.44 * (K_AR*K_lambda*K_mr * (sqrt(cos(LambdaLE_quarter_rad))))^1.19;
+X_WH = XWHr_ft + (crH_ft/4) - (cr_ft/4); %Changes from part D
+r = (2*X_WH)/b_ft; %Changes from part D
+K_mr = (1-(m/2))/(r^.33); %Changes from part D
+K_mr = .8299; % Changes from .819 to .8299
+d_epsilon_dalpha_mach0 = 4.44 * (K_AR*K_lambda*K_mr * (sqrt(cos(LambdaLE_quarter_rad))))^1.19; % .6235 to .6334 
 kw = 1+((AR*1.87-(.000233*LambdaLE_rad))/100);
 c_L_alpha_W_mach0 = (2*pi*AR)/(2+sqrt(((((AR^2)*(1-0^2))/(kw^2))*(1+((tan(LambdaLE_half_rad)^2)/(1-0^2))))+4));
 c_L_alpha_W_mach = (2*pi*AR)/(2+sqrt(((((AR^2)*(1-Mach^2))/(kw^2))*(1+((tan(LambdaLE_half_rad)^2)/(1-Mach^2))))+4));
-d_epsilon_dalpha_mach = d_epsilon_dalpha_mach0 * (c_L_alpha_W_mach/c_L_alpha_W_mach0);
+d_epsilon_dalpha_mach = d_epsilon_dalpha_mach0 * (c_L_alpha_W_mach/c_L_alpha_W_mach0); % .7292 to .7408
 
 %Horizontal Tail Parameters
 
@@ -374,7 +376,7 @@ c_n_delta_A = delta_K_n_A * c_L_1 * c_l_delta_A;
 %- Done 
 X_R = 27; % verified
 Z_R = 7.4;
-c_l_delta_R = (c_Y_delta_R) * (((Z_R*cos(alpha_rad)) - (X_R*sin(alpha_rad)))/b_ft);
+c_l_delta_R = (c_Y_delta_R/2) * (((Z_R*cos(alpha_rad)) - (X_R*sin(alpha_rad)))/b_ft);
  %- Done
 c_n_delta_R = (-c_Y_delta_R) * (((X_R*cos(alpha_rad))+(Z_R*sin(alpha_rad)))/b_ft);
 % - Done
@@ -534,14 +536,11 @@ InitialInertialPosition = [Xe Ye Ze];
 % Ye1 = 0;
 % Ze1 = 0;
 % SecondInertialPosition = [Xe1 Ye1 Ze1];
-U1 = V_P_1 * cos(alpha_rad);
-W1 = V_P_1 * sin(alpha_rad);
-V1 = 0;
 
-U = V_P_1;
+U = uv;
 v = 0;
 w = 0;
-InitialVelocity = [U v W1];
+InitialVelocity = [U v w];
 
 % U1 = 0;
 % v1 = 0;
@@ -614,7 +613,54 @@ uk = [c_D_delta_E c_D_q c_D_i_H c_Y_1 c_Y_betadot c_l_betadot c_n_1 c_n_betadot]
 
 
 
+%% Input Generation
 
+U1 = V_P_1 * cos(alpha_rad);
+W1 = V_P_1 * sin(alpha_rad);
+V1 = 0;
+% %% 
+% 
+% 
+% t_final = 60.0;
+% Ts = 0.001;
+% 
+% timeVec = [0:Ts:t_final]';
+% 
+% deltaA = zeros(length(timeVec),1);
+% % deltaS = zeros(length(timeVec),1);
+% deltaR = zeros(length(timeVec),1);
+% i_H = zeros(length(timeVec),1);
+% 
+% deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% doubletMag = 2;
+% deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
+% deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% doubletMag = 2;
+% deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
+% deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% % deltaS = zeros(length(timeVec),1);
+% % deltaS_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% % deltaS_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% % doubletMag = 2;
+% % deltaS(deltaS_doublet_up_Idx,1) = deg2rad(doubletMag);
+% % deltaS(deltaS_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% % deltaS_vector = horzcat(timeVec,deltaS);
+% 
+% i_H_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+% i_H_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+% doubletMag = 2;
+% i_H(i_H_doublet_up_Idx,1) = deg2rad(doubletMag);
+% i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
+% 
+% i_H_vector = horzcat(timeVec,i_H);
+% deltaA_vector = horzcat(timeVec,deltaA);
+% deltaR_vector = horzcat(timeVec,deltaR);
+% 
+% % CSc = [deltaA deltaS deltaR];
+% % CSv = [deltaA_vector deltaS_vector deltaR_vector];
 %% Aileron Movement
 tf = 20.0;
 Ts = 0.01;
@@ -750,20 +796,20 @@ sim(modelname)
 
 figure
 subplot(4,1,1);
-plot(timeVec,beta1,'linewidth',1.5)
+plot(timeVec,rad2deg(beta1),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('beta (deg)')
 title('Rudder Doublet vs Time')
 grid on
 
 subplot(4,1,2); 
-plot(timeVec,phi,'linewidth',1.5)
+plot(timeVec,rad2deg(phi),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('ϕ (deg)')
 grid on
 
 subplot(4,1,3);
-plot(timeVec,psi,'linewidth',1.5)
+plot(timeVec,rad2deg(phi),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel(' ψ (deg)')
 grid on
@@ -784,7 +830,7 @@ subplot(4,1,1);
 plot(timeVec,(beta1),'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('beta (deg)')
-title('Aileron Doublet vs Time')
+title('Rudder Doublet vs Time')
 grid on
 
 subplot(4,1,2); 
@@ -809,29 +855,34 @@ grid on
 
 figure
 subplot(4,1,1);
-plot(timeVec,u,'linewidth',1.5)
+plot(timeVec,U,'linewidth',1.5)
 xlabel('Time (secs)')
-ylabel('u (ft/s)')
-title('Stabilator Doublet vs Time')
+ylabel('beta (ft/s)')
+title('Rudder Doublet vs Time')
 grid on
 
 subplot(4,1,2); 
-plot(timeVec,alpha1,'linewidth',1.5)
+plot(timeVec,rad2deg(alpha1),'linewidth',1.5)
 xlabel('Time (secs)')
-ylabel('α (deg)')
+ylabel('ϕ (deg)')
 grid on
 
 subplot(4,1,3);
-plot(timeVec,theta,'linewidth',1.5)
+plot(timeVec,rad2deg(theta),'linewidth',1.5)
 xlabel('Time (secs)')
-ylabel(' θ (deg)')
+ylabel(' ψ (deg)')
 grid on
 
 subplot(4,1,4);
 plot(timeVec,i_H_vector(:,end),'linewidth',1.5)
 xlabel('Time (secs)')
-ylabel('ι_Η (deg)')
+ylabel('del_R (deg)')
 grid on
 %% Output Forces and Moments
-disp()
+disp(FAx)
+disp(FAy)
+disp(FAz)
+disp(LA)
+disp(NA)
+disp(MA)
 

@@ -17,14 +17,12 @@ L_beta = (qbar1*S*c_L_beta*b) / IXX ;%*(sec^-2);
 L_p = ((qbar1*S*b*c_l_p)/IXX) * (b/(2*U1));%*(sec^-1);
 L_r = ((qbar1*S*b*c_l_r)/(IXX)) * (b/(2*U1));%*(sec^-1);
 L_deltaA = (qbar1*S*c_l_delta_A*b)/IXX ; %*(sec^-2);
-L_deltaR = (qbar1*S*c_l_delta_R*b)/IXX ;
+L_deltaR = 
 
-N_beta = (qbar1*S*c_n_Tbeta*b)/IZZ;%*(sec^-2);
-N_Tbeta = (qbar1*S*c_n_beta*b)/IZZ;
-N_p= ((qbar1*S*b*c_n_p)/IZZ)*(b/(2*U1)); %*( sec^(-1));
-N_r= ((qbar1*S*b*c_n_r)/(IZZ))*(b/(2*U1)); %*( sec^(-1));
-N_deltaA = (qbar1*S*c_n_delta_A * b)/IZZ; % (sec^-1);
-N_deltaR= (qbar1*S*c_n_delta_R * b)/IZZ;  %*( sec^(-2));
+N_beta= qbar1*S*cn_beta*b/Izz ;%*(sec^-2);
+N_p= qbar1*Sbcnp*b/(Izz*( 2*U)); %*( sec^(-1));
+N_r= ((qbar1*S*b*c_n_r)/(Izz)) *(b / (2*U1)); %*( sec^(-1));
+N_deltaR= (qbar1*S*c_n_delta_R * b)/IZZ; %*( sec^(-2));
 
 
 

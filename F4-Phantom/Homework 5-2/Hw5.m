@@ -40,6 +40,7 @@ Z_u = -(qbar1*S*(c_L_u+(2*c_L_1)))/(m*V_p_1); %Slide 72 Lecture 17
 M_alphadot = (c_m_alphadot*qbar1*S*(cbar^2)) / (2*IYY*V_p_1);
 M_q = (c_m_q*qbar1*S*(cbar^2)) / (2*IYY*V_p_1);
 M_alpha = (c_m_alpha*qbar1*S*cbar) / IYY;
+M_u = (qbar1*S*cbar*(c_m_u+(2*(c_m_1)))) / (U1*IYY);
 
 %Natural Frequencies
 omega_n_DR = sqrt(((Y_beta*N_r)-(Y_r*N_beta)+(V_p_1*N_beta))/(V_p_1));
@@ -50,7 +51,10 @@ omega_n_PH_lowMach = (sqrt(2)) * (g/V_P_1); % For low subsonic conditions
 %Damping Ratios
 zeta_DR = (-1/(2*omega_n_DR)) * ((Y_beta+(V_p_1*N_r))/V_p_1);
 zeta_SP = (M_alphadot+M_q+(Z_alpha/V_p_1))/(2 *(sqrt(((Z_alpha*M_q)/V_p_1) - M_alpha)));
-zeta_PH = 0; %slide 75 lecture 17
+zeta_PH = (-(X_u+X_Tu)/(2*omega_n_PH)); %slide 75 lecture 17
+
+E1 = (Z_u*M_alpha)-(Z_alpha*M_u);
+
 
 
 

@@ -529,6 +529,7 @@ Xe = 0;
 Ye = 0;
 Ze = 35000;
 InitialInertialPosition = [Xe Ye Ze];
+V_P_1 = 876;
 % 
 % Xe1 = 0;
 % Ye1 = 0;

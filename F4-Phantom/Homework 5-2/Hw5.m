@@ -16,8 +16,8 @@ Y_deltaR = (qbar1*S_ft2*c_Y_delta_R / m) ;
 L_beta = (qbar1*S_ft2*c_L_beta*b) / IXX ;%*(S_ft2ec^-2);
 L_p = ((qbar1*S_ft2*b*c_l_p)/IXX) * (b/(2*U1));%*(S_ft2ec^-1);
 L_r = ((qbar1*S_ft2*b*c_l_r)/(IXX)) * (b/(2*U1));%*(S_ft2ec^-1);
-L_deltaA = (qbar1*S_ft2*c_l_delta_A*b)/IXX ; %*(S_ft2ec^-2);
-L_deltaR = (qbar1*S_ft2*c_l_delta_R*b)/IXX ;
+L_delta_A = (qbar1*S_ft2*c_l_delta_A*b)/IXX ; %*(S_ft2ec^-2);
+L_delta_R = (qbar1*S_ft2*c_l_delta_R*b)/IXX ;
 
 N_beta = (qbar1*S_ft2*c_n_Tbeta*b)/IZZ;%*(S_ft2ec^-2);
 N_Tbeta = (qbar1*S_ft2*c_n_beta*b)/IZZ;

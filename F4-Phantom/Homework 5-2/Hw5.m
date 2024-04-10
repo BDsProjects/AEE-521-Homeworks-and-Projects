@@ -7,7 +7,7 @@ F4ModelCode
 % Small perturbation Assumptions
 
 %Textbook Values
-c_T_X1 = .03; 
+c_T_X1 = -c_D_1; %Page 368 Napolitano 
 c_m_T1 = 0;
 c_T_X_u = -.064;
 c_m_T_u = 0;
@@ -64,6 +64,14 @@ zeta_SP = (M_alphadot+M_q+(Z_alpha/V_P_1))/(2 *(sqrt(((Z_alpha*M_q)/V_P_1) - M_a
 zeta_PH = (-(X_u+X_Tu)/(2*omega_n_PH)); %S_ft2lide 75 lecture 17
 
 E1 = (Z_u*M_alpha)-(Z_alpha*M_u);
+%% display
+disp(omega_n_DR) %real
+disp(omega_n_SP) %non-real
+disp(omega_n_PH) %0
+disp(zeta_DR) %non-real
+disp(zeta_SP) %real
+disp(zeta_PH) %non-real
+
 %% Display as a Table
 String_omega_n_DR = num2str(omega_n_DR);
 String_omega_n_SP = num2str(omega_n_SP);

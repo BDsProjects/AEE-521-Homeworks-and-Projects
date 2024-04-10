@@ -56,7 +56,7 @@ M_u = (qbar1*S_ft2*cbar_ft*(c_m_u+(2*(c_m_1)))) / (U1*IYY);
 omega_n_DR = sqrt(((Y_beta*N_r)-(Y_r*N_beta)+(V_P_1*N_beta))/(V_P_1));
 omega_n_SP = 0; %S_ft2lide 67 Lecture 17
 omega_n_PH = sqrt((-g*Z_u)/V_P_1); %S_ft2lide 72 Lecture 17
-omega_n_PH_lowMach = (sqrt(2)) * (g/V_P_1); % For low S_ft2ubS_ft2onic conditionS_ft2
+omega_n_PH_LowMach = (sqrt(2)) * (g/V_P_1); % For low S_ft2ubS_ft2onic conditionS_ft2
 
 %Damping RatioS_ft2
 zeta_DR = (-1/(2*omega_n_DR)) * ((Y_beta+(V_P_1*N_r))/V_P_1);
@@ -64,6 +64,19 @@ zeta_SP = (M_alphadot+M_q+(Z_alpha/V_P_1))/(2 *(sqrt(((Z_alpha*M_q)/V_P_1) - M_a
 zeta_PH = (-(X_u+X_Tu)/(2*omega_n_PH)); %S_ft2lide 75 lecture 17
 
 E1 = (Z_u*M_alpha)-(Z_alpha*M_u);
+%% Display as a Table
+String_omega_n_DR = num2str(omega_n_DR);
+String_omega_n_SP = num2str(omega_n_SP);
+String_omega_n_PH = num2str(omega_n_PH);
+String_omega_n_PH_LowMach = num2str(omega_n_PH_lowMach);
+String_zeta_DR = num2str(zeta_DR);
+String_zeta_SP = num2str(zeta_SP);
+String_zeta_PH = num2str(zeta_DR);
+
+DisplayTable = ["ω_n_DR:", String_omega_n_DR];
+msgbox(DisplayTable, "Homework 5 Answers")
+
+
 
 
 

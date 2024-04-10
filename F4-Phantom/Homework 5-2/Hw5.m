@@ -38,7 +38,7 @@ N_deltaR= (qbar1*S_ft2*c_n_delta_R * b_ft)/IZZ;  %*( Sec^(-2));
 
 
 
-%Need X'S_ft2 here 
+%Need X's here %might need to zero out both of these bc c_D_u
 X_u = -(qbar1*S_ft2*(c_D_u+(2*c_D_1)))/(mass*V_P_1); %S_ft2lide 75 lecture 17
 X_Tu = (qbar1*S_ft2*(c_T_X_u+(2*c_T_X1)))/(mass*V_P_1); %Both of these were checked for errors
 

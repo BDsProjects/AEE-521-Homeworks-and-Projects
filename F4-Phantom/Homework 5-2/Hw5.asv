@@ -21,7 +21,7 @@ Y_r = ((qbar1*S_ft2*c_Y_r)/mass) *(b_ft/(2*U1)) ;%* (ftsec^-1);
 Y_delta_A = (qbar1*S_ft2*c_Y_delta_A / mass) ;%* (Sec^-2);
 Y_delta_R = (qbar1*S_ft2*c_Y_delta_R / mass) ;
 
-L_beta = (qbar1*S_ft2*c_L_beta*b_ft) / IXX ;%*(Sec^-2);
+L_beta = (qbar1*S_ft2*c_l_beta*b_ft) / IXX ;%*(Sec^-2);
 L_p = ((qbar1*S_ft2*b_ft*c_l_p)/IXX) * (b_ft/(2*U1));%*(Sec^-1);
 L_r = ((qbar1*S_ft2*b_ft*c_l_r)/(IXX)) * (b_ft/(2*U1));%*(Sec^-1);
 L_delta_A = (qbar1*S_ft2*c_l_delta_A*b_ft)/IXX ; %*(Sec^-2);
@@ -47,10 +47,10 @@ Z_alpha = - qbar1*S_ft2*(c_L_alpha + c_D_i_H) / mass;
 Z_u = -(qbar1*S_ft2*(c_L_u+(2*c_L_1)))/(mass*V_p_1); %S_ft2lide 72 Lecture 17
 %M'S_ft2 
 
-M_alphadot = (c_m_alphadot*qbar1*S_ft2*(cbar^2)) / (2*IYY*V_p_1);
-M_q = (c_m_q*qbar1*S_ft2*(cbar^2)) / (2*IYY*V_p_1);
-M_alpha = (c_m_alpha*qbar1*S_ft2*cbar) / IYY;
-M_u = (qbar1*S_ft2*cbar*(c_m_u+(2*(c_m_1)))) / (U1*IYY);
+M_alphadot = (c_m_alphadot*qbar1*S_ft2*(cbar_ft^2)) / (2*IYY*V_p_1);
+M_q = (c_m_q*qbar1*S_ft2*(cbar_ft^2)) / (2*IYY*V_p_1);
+M_alpha = (c_m_alpha*qbar1*S_ft2*cbar_ft) / IYY;
+M_u = (qbar1*S_ft2*cbar_ft*(c_m_u+(2*(c_m_1)))) / (U1*IYY);
 
 %Natural FrequencieS_ft2
 omega_n_DR = S_ft2qrt(((Y_beta*N_r)-(Y_r*N_beta)+(V_p_1*N_beta))/(V_p_1));

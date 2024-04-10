@@ -10,8 +10,8 @@ F4ModelCode
 Y_beta = (qbar1*S_ft2*c_Y_beta)/ m ;%* (ftS_ft2ec^-2);
 Y_p = ((qbar1*S_ft2*c_Y_p) / m) *(b / (2*U1)) ;%* (ftS_ft2ec^-2);
 Y_r = ((qbar1*S_ft2*c_Y_r)/m) *(b/(2*U1)) ;%* (ftS_ft2ec^-1);
-Y_deltaA = (qbar1*S_ft2*c_Y_delta_A / m) ;%* (ftS_ft2ec^-2);
-Y_deltaR = (qbar1*S_ft2*c_Y_delta_R / m) ;
+Y_delta_A = (qbar1*S_ft2*c_Y_delta_A / m) ;%* (ftS_ft2ec^-2);
+Y_delta_R = (qbar1*S_ft2*c_Y_delta_R / m) ;
 
 L_beta = (qbar1*S_ft2*c_L_beta*b) / IXX ;%*(S_ft2ec^-2);
 L_p = ((qbar1*S_ft2*b*c_l_p)/IXX) * (b/(2*U1));%*(S_ft2ec^-1);
@@ -30,7 +30,7 @@ c_T_X1 = .03; %from the back of the book
 
 %Need X'S_ft2 here 
 X_u = -(qbar1*S_ft2*(c_D_u+(2*c_D_1)))/(m*V_p_1); %S_ft2lide 75 lecture 17
-X_Tu = -(qbar1*S_ft2*(c_T_Xu+(2*c_T_X1)))/(m*V_p_1);
+X_Tu = (qbar1*S_ft2*(c_T_Xu+(2*c_T_X1)))/(m*V_p_1); %Both of these were checked for errors
 
 %Z'S_ft2 
 Z_alpha = - qbar1*S_ft2*(c_L_alpha + c_D_i_H) / m;

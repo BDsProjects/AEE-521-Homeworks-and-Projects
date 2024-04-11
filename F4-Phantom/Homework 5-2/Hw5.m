@@ -55,8 +55,8 @@ M_u = (qbar1*S_ft2*cbar_ft*(c_m_u+(2*(c_m_1)))) / (U1*IYY);
 %Natural FrequencieS_ft2
 omega_n_DR = sqrt(((Y_beta*N_r)-(Y_r*N_beta)+(V_P_1*N_beta))/(V_P_1));
 omega_n_SP = 0; %S_ft2lide 67 Lecture 17
-omega_n_PH = sqrt((-g*Z_u)/V_P_1); %S_ft2lide 72 Lecture 17
-omega_n_PH_LowMach = (sqrt(2)) * (g/V_P_1); % For low S_ft2ubS_ft2onic conditionS_ft2
+omega_n_PH = sqrt((-g*Z_u)/V_P_1); %Slide 72 Lecture 17
+omega_n_PH_LowMach = (sqrt(2)) * (g/V_P_1); % For low SubSonic conditions
 
 %Damping RatioS_ft2
 zeta_DR = (-1/(2*omega_n_DR)) * ((Y_beta+(V_P_1*N_r))/V_P_1);

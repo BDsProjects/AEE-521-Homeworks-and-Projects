@@ -1,5 +1,5 @@
-% Call the Project 1 Matlab File, but make it S_ft2o it'S_ft2 only the coefficientS_ft2
-% in a S_ft2eperate file 
+% Call the Project 1 Matlab File, but make it so it's only the coefficients
+% in a seperate file 
 F4ModelCode
 
 %% 

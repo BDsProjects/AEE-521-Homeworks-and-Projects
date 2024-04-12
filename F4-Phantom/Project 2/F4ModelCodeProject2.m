@@ -728,6 +728,10 @@ deltaR_vector = horzcat(timeVec,deltaR);
 % deltaR_vector = horzcat(timeVec,deltaR);
 % %iH_vector = horzcat(timeVec,delta_iH);
 % CSc = [deltaA_vector deltaS_vector deltaR_vector]';
+
+%% Change in Altitude
+DeltaZ = 100;
+
 %% Model Simulation
 
 

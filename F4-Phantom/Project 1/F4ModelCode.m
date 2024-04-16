@@ -117,7 +117,7 @@ lT = 0;
 mT = 0;
 nT = 0;
 
-
+V_P_1 = 876;
 q0 = angle2quat(phidot,thetadot,psidot);
 %% Hw3
 lambda = cT_ft/cr_ft;
@@ -522,6 +522,7 @@ c_D_u = 0;
 c_m_u = 0;
 
 
+
 uCoeffs = [c_L_u c_D_u c_m_u];
 
 %% Quaternion Block Initialization
@@ -538,7 +539,7 @@ U1 = V_P_1 * cos(alpha_rad);
 W1 = V_P_1 * sin(alpha_rad);
 V1 = 0;
 
-U = V_P_1;
+U = V_P_1; %change this to zero because this effects the plot for the change in X direction velocity. 
 v = 0;
 w = 0;
 InitialVelocity = [U v W1];

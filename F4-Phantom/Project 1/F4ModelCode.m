@@ -535,14 +535,14 @@ InitialInertialPosition = [Xe Ye Ze];
 % Ye1 = 0;
 % Ze1 = 0;
 % SecondInertialPosition = [Xe1 Ye1 Ze1];
-U1 = V_P_1 * cos(alpha_rad);
-W1 = V_P_1 * sin(alpha_rad);
+U = V_P_1 * cos(alpha_rad);
+W = V_P_1 * sin(alpha_rad);
 V1 = 0;
 
-U = V_P_1; %change this to zero because this effects the plot for the change in X direction velocity. 
+U = 0; %change this to zero because this effects the plot for the change in X direction velocity. 
 v = 0;
 w = 0;
-InitialVelocity = [U v W1];
+InitialVelocity = [U v w];
 
 % U1 = 0;
 % v1 = 0;
@@ -803,14 +803,14 @@ grid on
 subplot(4,1,4);
 plot(timeVec,rad2deg(deltaA_vector(:,end)),'linewidth',1.5)
 xlabel('Time (secs)')
-ylabel('del_R (deg)')
+ylabel('del_A (deg)')
 grid on
 
 %% Stabilitator Plot Section and Variable Outputs
 
 figure
 subplot(4,1,1);
-plot(timeVec,u,'linewidth',1.5)
+plot(timeVec,u1,'linewidth',1.5)
 xlabel('Time (secs)')
 ylabel('u (ft/s)')
 title('Stabilator Doublet vs Time')

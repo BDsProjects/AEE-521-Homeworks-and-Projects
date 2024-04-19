@@ -735,6 +735,7 @@ Ki = 0;
 Kd = 0;
 Kp = 0;
 deltaZ = 100; % Change in altitude
+InputTime = 7; %s
 
 
 

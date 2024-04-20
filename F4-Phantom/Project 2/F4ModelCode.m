@@ -604,7 +604,6 @@ FTz = 0;
 c_D_delta_E = 0;
 c_D_q = 0;
 c_D_i_H = -.10;
-V_P_1 = 875.6;
 c_Y_1 = 0;
 c_Y_betadot = 0;
 c_l_betadot = 0;
@@ -615,7 +614,125 @@ uk = [c_D_delta_E c_D_q c_D_i_H c_Y_1 c_Y_betadot c_l_betadot c_n_1 c_n_betadot]
 
 
 
+%% PID Section
+tf = 20.0;
+Ts = 0.01;
+timeVec = [0:Ts:tf]';
+Ki = 0;
+Kd = 0;
+Kp = 0;
+NewAlt = 35200; % Change in altitude
+InputTime = 7; %s
 
+%% Vector Initialization
+deltaA = zeros(length(timeVec),1);
+deltaR = zeros(length(timeVec),1);
+i_H = zeros(length(timeVec),1);
+
+%% Doublet Section
+
+for i = 1:3
+     % Stabilator
+    i_H_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+    i_H_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+    doubletMag = 2;
+    i_H(i_H_doublet_up_Idx,1) = deg2rad(doubletMag);
+    i_H(i_H_doublet_down_Idx,1) = deg2rad(-doubletMag);
+
+    % Aileron
+    deltaA_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+    deltaA_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+    doubletMag = 2;
+    deltaA(deltaA_doublet_up_Idx,1) = deg2rad(doubletMag);
+    deltaA(deltaA_doublet_down_Idx,1) = deg2rad(-doubletMag);
+
+    % Rudder
+    deltaR_doublet_up_Idx = find(timeVec >= 5 & timeVec <= 7);
+    deltaR_doublet_down_Idx = find(timeVec >= 15 & timeVec <= 17);
+    doubletMag = 2;
+    deltaR(deltaR_doublet_up_Idx,1) = deg2rad(doubletMag);
+    deltaR(deltaR_doublet_down_Idx,1) = deg2rad(-doubletMag);
+    
+    modelname = 'F4PhantomRunningModel.slx';
+    sim(modelname)
+
+    if i==1
+        % Plotting for 
+        figure % No PID
+        sgtitle('Stabilator Doublet Natural Response')
+        subplot(4,1,1)
+        plot(timeVec, u)
+        grid on; xlabel('Time (s)'); ylabel('u (ft/s)');
+        subplot(4,1,2)
+        plot(timeVec, alpha1)
+        grid on; xlabel('Time (s)'); ylabel('Alpha (deg/s)');
+        subplot(4,1,3)
+        plot(timeVec, theta)
+        grid on; xlabel('Time (s)'); ylabel('Theta (deg/s)');
+        subplot(4,1,4)
+        plot(timeVec, i_H_vector_sim)
+        grid on; xlabel('Time (s)'); ylabel('Delta Stabilatator (rad)');
+
+        figure % PID
+        sgtitle('Stabilator Doublet PID Response')
+        subplot(4,1,1)
+        plot(timeVec, u)
+        grid on; xlabel('Time (s)'); ylabel('u (ft/s)');
+        subplot(4,1,2)
+        plot(timeVec, alpha1)
+        grid on; xlabel('Time (s)'); ylabel('Alpha (deg/s)');
+        subplot(4,1,3)
+        plot(timeVec, theta)
+        grid on; xlabel('Time (s)'); ylabel('Theta (deg/s)');
+        subplot(4,1,4)
+        plot(timeVec, i_H_vector_sim)
+        grid on; xlabel('Time (s)'); ylabel('Delta Stabilatator (rad)');
+
+        figure % Altitude Plot
+        sgtitle('Stabilator Doublet PID Response Altitude')
+        plot(timeVec, Zoriginal)
+        hold on
+        yline(NewAlt, 'r--')
+        grid on; xlabel('Time (s)'); ylabel('Altitude (ft)');
+        legend('Measured Altitude', 'Desired Altitude', 'Interpreter');
+
+    elseif i==2
+        % Plotting for aileron doublet
+        figure % Before PID
+        sgtitle('Aileron Doublet Natural Response')
+        subplot(4,1,1)
+        plot(timeVec, beta)
+        grid on; xlabel('Time (s)');ylabel('beta (rad)');xlim([0 60]);
+        subplot(4,1,2)
+        plot(timeVec,phi)
+        grid on; xlabel('Time (s)','Interpreter','latex');ylabel('$\phi$ (rad)','Interpreter','latex');xlim([0 60]);
+        subplot(4,1,3)
+        plot(timeVec, psi,'b-')
+        grid on; xlabel('Time (s)');ylabel('psi (rad)');xlim([0 60]);
+        subplot(4,1,4)
+        plot(timeVec, delavec(:,2),'b-')
+        grid on; xlabel('Time (s)','Interpreter','latex');ylabel('$\delta_{A}$ (rad)','Interpreter','latex');xlim([0 60]);
+
+    else
+        % Plotting for rudder doublet
+        figure % Before PID
+        sgtitle('Rudder Doublet Natural Response')
+        subplot(4,1,1)
+        plot(timeVec, beta, 'b-')
+        grid on; xlabel('Time (s)');ylabel('beta (rad)');
+        subplot(4,1,2)
+        plot(timeVec,phi,'b-')
+        grid on; xlabel('Time (s)');ylabel('phi (rad)');
+        subplot(4,1,3)
+        plot(timeVec, psi,'b-')
+        grid on; xlabel('Time (s)');ylabel('psi (rad)');
+        subplot(4,1,4)
+        plot(timeVec, delrvec(:,2),'b-')
+        grid on; xlabel('Time (s)');ylabel('delta_R (rad)');
+
+    end
+
+end
 %% Aileron Movement
 tf = 20.0;
 Ts = 0.01;
@@ -729,17 +846,6 @@ deltaR_vector = horzcat(timeVec,deltaR);
 % deltaR_vector = horzcat(timeVec,deltaR);
 % %iH_vector = horzcat(timeVec,delta_iH);
 % CSc = [deltaA_vector deltaS_vector deltaR_vector]';
-
-%% PID 
-Ki = 0;
-Kd = 0;
-Kp = 0;
-deltaZ = 100; % Change in altitude
-InputTime = 7; %s
-
-
-
-
 %% Model Simulation
 
 

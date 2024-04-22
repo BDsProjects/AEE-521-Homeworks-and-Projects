@@ -598,7 +598,7 @@ timeVec = [0:Ts:tf]';
 Ki = 0;
 Kd = 0;
 Kp = 0;
-NewAlt = 35200; % Change in altitude
+NewAlt = 35100; % Change in altitude
 InputTime = 7; %s
 
 %% Vector Initialization

@@ -605,6 +605,8 @@ InputTime = 7; %s
 deltaA = zeros(length(timeVec),1);
 deltaR = zeros(length(timeVec),1);
 i_H = zeros(length(timeVec),1);
+
+
 %% Aileron Movement
 tf = 20.0;
 Ts = 0.01;

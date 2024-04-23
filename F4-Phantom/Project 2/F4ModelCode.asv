@@ -674,9 +674,9 @@ Ts = 0.01; % Original timestep
 %Ts = .001; %Testing smaller time step -> bad
 %Ts = .1; %best this far
 %Ts = 1.0; % Worse
-Ki = 0.0;
-Kd = -.00015;
-Kp = -0.000008;
+Ki = 0.00008;
+Kd = 0.90;
+Kp = 1.3;
 NewAlt = 35300; % Change in altitude
 %InputTime = 6; %s
 

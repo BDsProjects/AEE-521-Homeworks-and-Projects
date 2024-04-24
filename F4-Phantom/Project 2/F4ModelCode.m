@@ -790,4 +790,41 @@ xlabel('Time (secs)')
 ylabel('ι_Η (deg)')
 grid on
 
+%% Stabilator PID Re-adjustment Plots
+
+figure;
+subplot(4,1,1);
+plot(timeVec,u1,'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('u (ft/s)')
+title('Stabilator Doublet vs Time')
+grid on
+
+
+
+subplot(4,1,2); 
+plot(timeVec,alpha1,'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('α (deg)')
+grid on
+
+subplot(4,1,3);
+plot(timeVec,theta,'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel(' θ (deg)')
+grid on
+
+subplot(4,1,4);
+plot(timeVec,rad2deg(i_H_vector_sim(:,end)),'linewidth',1.5)
+xlabel('Time (secs)')
+ylabel('i_Η (deg)')
+grid on
+
+%% PID Graphs
+
+figure; 
+subplot(4,1,4);
+plot(timeVec, NewAlt, 'k'); hold on; 
+plot(timeVec, )
+
 
